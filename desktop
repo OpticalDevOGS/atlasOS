@@ -1,0 +1,61 @@
+-- VARS
+VER = 1.0
+running = true
+-- VARS/APP
+local voipString = "Minecord"
+local browserString = "Browser"
+-- VARS/APPCURSOR
+local VoIPx,VoIPy = 2,2
+local Browserx,Browsery = 15,2
+
+_dt = paintutils.loadImage("disk/atlasOS/background/dt")
+-- FUNC
+function clear()
+    term.clear()
+    term.setCursorPos(1,1)
+end
+
+function drawDesktopBackgroundImage()
+    term.setBackgroundColor(colors.gray)
+    clear()
+    paintutils.drawImage(_dt, 1, 1)
+end
+
+function runTime()
+    while running do
+        event, button, x, y = os.pullEvent("mouse_click")
+        if event == "mouse_click" then
+            clear()
+            running = false
+        end
+    end
+end
+
+function drawAPPS()
+    term.setBackgroundColor(colors.purple)
+    term.setTextColor(colors.black) 
+    term.setCursorPos(VoIPx,VoIPy)
+    write(voipString)
+    term.setCursorPos(Browserx,Browsery)
+    write(browserString)  
+end
+
+function clickScript()
+    while true do
+        local event, button, cx, cy = os.pullEvent()
+        if event == "mouse_click" then
+            if cx >= VoIPx and cx < voipString:len() and cy == VoIPy and button == 1 then
+                shell.run("apps/"..voipString.."/startup")
+            end 
+        end
+    end
+end
+
+function init()
+drawDesktopBackgroundImage()
+drawAPPS()
+clickScript()
+runTime()
+end
+-- MAIN
+init()
