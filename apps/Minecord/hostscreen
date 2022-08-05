@@ -1,9 +1,0 @@
---VARS
-
---FUNC
-local function drawPrints()
-term.setCursorPos(1,1)
-clear()
-print("You Are Currently Running Channel: ..")
-end
---MAIN
