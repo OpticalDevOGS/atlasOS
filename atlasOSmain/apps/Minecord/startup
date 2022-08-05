@@ -1,0 +1,42 @@
+-- VARS
+
+-- VARS/BUTTONS
+local joinx,joiny = 2,10
+local hostx,hosty = 15,10
+local quitx,quity = 2,15
+
+local jointext = "Join A Chat"
+local hosttext = "Host A Chat"
+local quittext = "Quit To Desktop"
+-- FUNC
+function drawButtons()
+    term.setCursorPos(joinx,joiny)
+    term.setBackgroundColor(colors.lightBlue)
+    write(jointext)
+    term.setCursorPos(quitx,quity)
+    write(quittext)
+    term.setCursorPos(hostx,hosty)
+    write(hosttext)
+end
+
+function eventHandler()
+    while true do
+        local event, button, cx, cy = os.pullEvent()
+        if event == "mouse_click" then
+            if cx >= joinx and cx < jointext:len() and cy == joiny and button == 1 then
+                shell.run(".apps/Minecord/joinscreen")
+                elseif cx >= quitx and cx < quittext:len() and cy == quity and button == 1 then
+                shell.run("desktop")
+                elseif cx >= hostx and cx < hosttext:len() and cy == hosty and button == 1 then
+                shell.run(".apps/Minecord/hostscreen")
+            end
+        end
+    end
+end
+-- MAIN
+term.clear()
+term.setCursorPos(1,1)
+print([[To join a chat click on the "Join A Chat" Button]])
+print([[BTW! hosting is only if you want to use this computer as a server!]])
+drawButtons()
+eventHandler()
